@@ -20,11 +20,13 @@ class VoteProject extends Model implements Transformable
 
     protected $fillable = [];
 
+
     public static function boot()
     {
         parent::boot();
         static::observe(new VoteProjectObserver());
     }
+
 
     public function voteItem()
     {

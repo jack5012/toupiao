@@ -2,6 +2,7 @@
 
 namespace App\Entities\Common;
 
+
 use App\Observers\VoteItemObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,6 +12,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 class VoteItem extends Model implements Transformable
 {
     use TransformableTrait;
+
     use SoftDeletes;
 
     const UNREVIEW = 0;

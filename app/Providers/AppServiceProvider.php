@@ -23,11 +23,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Config::load();
+
         /*
         VoteItem::observe(VoteItemObserver::class);
         VoteRecord::observe(VoteRecordObserver::class);
         VoteProject::observe(VoteProjectObserver::class);
         */
+
     }
 
     /**
