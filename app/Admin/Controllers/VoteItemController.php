@@ -83,6 +83,12 @@ class VoteItemController extends Controller
             $grid->created_at('报名时间');
             $grid->status('审核状态')->select(VoteItem::$_status);
 
+            $grid->filter(function($filter){
+                $filter->disableIdFilter();
+                $filter->like('openid', '参与者微信');
+
+            });
+
         });
     }
 

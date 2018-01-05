@@ -23,7 +23,7 @@ class VoteRecordObserver
 
     public function deleted(VoteRecord $voteRecord)
     {
-        $voteRecord->voteItem->voted -= 1;
-        $voteRecord->voteItem->save();
+        /*$voteRecord->voteItem->voted -= 1;
+        $voteRecord->voteItem->save();*/
     }
 }
