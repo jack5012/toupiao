@@ -12,6 +12,9 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->resource('users', UserController::class);
-
+    $router->resource('vote/project', VoteProjectController::class);
+    $router->resource('vote/item', VoteItemController::class);
+    $router->resource('vote/record', VoteRecordController::class);
+    $router->resource('vote/rule', VoteRuleController::class);
 });
 
