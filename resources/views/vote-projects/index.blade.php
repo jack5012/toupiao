@@ -1,5 +1,5 @@
 {{ $voteProject->name }}
-{{ $voteProject->desc }}
+{!! $voteProject->desc !!}
 {{ $voteProject->end }}
 {{ $voteProject->visitd }}
 {{ $voteProject->involved }}

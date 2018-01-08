@@ -50,8 +50,10 @@ class VoteItemsController extends Controller
             ]);
         }
 
-        return view('voteItems.index', compact('voteItems'));
+        return view('vote-items.index', compact('voteItems'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -111,7 +113,7 @@ class VoteItemsController extends Controller
             ]);
         }
 
-        return view('voteItems.show', compact('voteItem'));
+        return view('vote-items.show', compact('voteItem'));
     }
 
 
@@ -127,7 +129,7 @@ class VoteItemsController extends Controller
 
         $voteItem = $this->repository->find($id);
 
-        return view('voteItems.edit', compact('voteItem'));
+        return view('vote-items.edit', compact('voteItem'));
     }
 
 
@@ -173,26 +175,22 @@ class VoteItemsController extends Controller
         }
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function vote(VoteItemUpdateRequest $request, $id)
     {
-        $deleted = $this->repository->delete($id);
-
-        if (request()->wantsJson()) {
-
+        try {
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $voteItem = $this->repository->update($request->all(), $id);
+            $response = [
+                'message' => 'VoteItem updated.',
+                'data'    => $voteItem->toArray(),
+            ];
+            return response()->json($response);
+        } catch (ValidatorException $e) {
             return response()->json([
-                'message' => 'VoteItem deleted.',
-                'deleted' => $deleted,
+                'error'   => true,
+                'message' => $e->getMessageBag()
             ]);
         }
-
-        return redirect()->back()->with('message', 'VoteItem deleted.');
     }
+
 }

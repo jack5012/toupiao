@@ -27,4 +27,11 @@ Route::group(['middleware' => ['web', 'wechat.oauth:snsapi_userinfo']], function
 
 });
 
-Route::get('project/{id}', 'VoteProjectsController@show');
+Route::get('vote-project/{id}', 'VoteProjectsController@index');
+Route::get('vote-project/{id}/ranking', 'VoteProjectsController@ranking');
+Route::any('vote-project/{id}/search', 'VoteProjectsController@search');
+Route::any('vote-project/{id}/register', 'VoteProjectsController@register');
+
+Route::get('vote-item', 'VoteItemsController@index');
+Route::get('vote-item/{id}', 'VoteItemsController@show');
+Route::post('vote-item/{id}/vote', 'VoteItemsController@vote');
