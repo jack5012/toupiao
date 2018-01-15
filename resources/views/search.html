@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>搜索页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link href="./css/mui.indexedlist.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+        .mui-bar {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        body{
+            padding: 15px;
+            background-color: #fff;
+        }
+        .mui-table-view-cell {
+            position: relative;
+            overflow: hidden;
+            padding: 10px 15px;
+            -webkit-touch-callout: none;
+            margin-bottom: 10px;
+        }
+        .mui-table-view-cell .mui-badge{
+            position: static;
+            top: 50%;
+            left: 15px;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            background-color: #efeff4;
+            color: #555;
+
+        }
+        .mui-table-view-cell:after{
+            height:0;
+        }
+        .mui-table-view.mui-unfold .mui-table-view-cell.mui-media-icon.mui-collapse .mui-media-body:after{
+            height:0;
+        }
+        .mui-table-view .mui-table-view-cell .mui-media-body{
+            font-size: 15px;
+            color: #333;
+            line-height: 40px;
+        }
+        .mui-table-view .mui-table-view-cell .mui-media-body.blue{
+            color:#00B0F0;
+            text-align: right;
+        }
+        .mui-table-view .mui-table-view-cell.mui-media-icon .mui-media-object img{
+            line-height: 40px;
+            max-width: 40px;
+            height: 40px;
+        }
+        .mui-table-view .mui-table-view-cell.mui-media-icon .mui-media-object {
+            line-height: 40px;
+            max-width: 40px;
+            height: 40px;
+            margin: 0;}
+        .margin{
+            margin-top: 9px;
+        }
+        .mui-btn{
+            border:0;
+            padding: 0 10px;
+            height: 20px;
+            line-height: 20px;
+            margin-top: 7px;
+        }
+        .mui-search .mui-placeholder{
+            font-size: 14px;
+        }
+        .mui-indexed-list{
+            background-color: #fff;
+            border: 0;
+        }
+
+    </style>
+</head>
+<body>
+<!--<div>
+    <div class="mui-row">
+        <div class="mui-input-row mui-search mui-col-xs-8 mui-col-sm-8" style="height:34px;line-height:34px;">
+            <input type="search" class="mui-input-clear" placeholder="搜索选项编号或名称" style="line-height: 34px;height: 34px;margin-bottom:0;background-color: #f8f8f8">
+        </div>
+        <div class="mui-col-xs-4 mui-col-sm-4 btn-box">
+            <a class="mui-btn" style="border-right: 1px solid #eee; color:#00B0F0;">搜索</a>
+            <a class="mui-btn" href="index.html">取消</a>
+        </div>
+    </div>
+
+    <div class="mui-content" style="background-color: #fff;">
+        <ul class="mui-table-view mui-unfold">
+            <li class="mui-table-view-cell mui-collapse mui-media mui-media-icon">
+                <a href="details.html" class="mui-row">
+                    <div class="mui-col-xs-2 mui-col-sm-2 margin">
+                        <span class="mui-badge " style="font-size:14px;margin-right:4px;">1</span>
+                    </div>
+                    <div class="mui-col-xs-6 mui-col-sm-6">
+                        <div class="mui-media-object mui-pull-left">
+                            <img src="./img/2.jpg">
+                        </div>
+                        <div class="mui-media-body mui-ellipsis">
+                            新奶奶快乐新奶奶快乐新奶奶快乐新奶奶快乐新奶奶快乐
+                        </div>
+                    </div>
+                    <div class="mui-col-xs-4 mui-col-sm-4 mui-media-body blue">
+                        2314票
+                    </div>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</div>-->
+
+<div class="">
+    <div id='list' class="mui-indexed-list">
+        <div class="mui-row">
+            <div class="mui-input-row mui-search mui-col-xs-8 mui-col-sm-8" style="height:34px;line-height:34px;">
+                <input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索选项编号或名称" style="line-height: 34px;height: 34px;margin-bottom:0;background-color: #f8f8f8">
+            </div>
+            <div class="mui-col-xs-4 mui-col-sm-4 btn-box">
+                <a class="mui-btn" style="border-right: 1px solid #eee; color:#00B0F0;">搜索</a>
+                <a class="mui-btn" href="index.html">取消</a>
+            </div>
+        </div>
+
+        <div class="mui-indexed-list-alert"></div>
+        <div class="mui-indexed-list-inner" style="background-color: #fff">
+            <div class="mui-indexed-list-empty-alert">没有数据</div>
+            <ul class="mui-table-view mui-unfold">
+                <li data-value="1" data-tags="AUO" class="mui-table-view-cell mui-collapse mui-media mui-media-icon">
+                    <a href="details.html" class="mui-row">
+                        <div class="mui-col-xs-2 mui-col-sm-2 margin">
+                            <span class="mui-badge " style="font-size:14px;margin-right:4px;">1</span>
+                        </div>
+                        <div class="mui-col-xs-6 mui-col-sm-6">
+                            <div class="mui-media-object mui-pull-left">
+                                <img src="./img/2.jpg">
+                            </div>
+                            <div class="mui-media-body mui-ellipsis">
+                                新奶奶快乐新奶奶快乐新奶奶快乐新奶奶快乐新奶奶快乐
+                            </div>
+                        </div>
+                        <div class="mui-col-xs-4 mui-col-sm-4 mui-media-body blue">
+                            2314票
+                        </div>
+                    </a>
+
+                </li>
+                <li data-value="2" data-tags="BCO" class="mui-table-view-cell mui-collapse mui-media mui-media-icon">
+                    <a href="details.html" class="mui-row">
+                        <div class="mui-col-xs-2 mui-col-sm-2 margin">
+                            <span class="mui-badge " style="font-size:14px;margin-right:4px;">1</span>
+                        </div>
+                        <div class="mui-col-xs-6 mui-col-sm-6">
+                            <div class="mui-media-object mui-pull-left">
+                                <img src="./img/2.jpg">
+                            </div>
+                            <div class="mui-media-body mui-ellipsis">
+                                新奶奶快乐新奶奶快乐新奶奶快乐新奶奶快乐新奶奶快乐
+                            </div>
+                        </div>
+                        <div class="mui-col-xs-4 mui-col-sm-4 mui-media-body blue">
+                            2314票
+                        </div>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="./js/mui.min.js"></script>
+<script src="./js/mui.indexedlist.js"></script>
+<script type="text/javascript" charset="utf-8">
+    mui.init();
+    mui.ready(function() {
+        var list = document.getElementById('list');
+        window.indexedList = new mui.IndexedList(list);
+    });
+</script>
+</body>
+</html>

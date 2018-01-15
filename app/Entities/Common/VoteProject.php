@@ -50,4 +50,9 @@ class VoteProject extends Model implements Transformable
         return json_decode($slide, true);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::OPEND);
+    }
+
 }

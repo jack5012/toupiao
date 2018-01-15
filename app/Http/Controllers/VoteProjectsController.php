@@ -2,106 +2,144 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Common\VoteItem;
+use App\Entities\Common\VoteProject;
 use Illuminate\Http\Request;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\VoteProjectCreateRequest;
-use App\Http\Requests\VoteProjectUpdateRequest;
-use App\Contracts\Repositories\VoteProjectRepository;
-use App\Validators\VoteProjectValidator;
+use Illuminate\Validation\Rule;
 
 
 class VoteProjectsController extends Controller
 {
 
-    /**
-     * @var VoteProjectRepository
-     */
+
     protected $repository;
 
-    /**
-     * @var VoteProjectValidator
-     */
-    protected $validator;
 
-    public function __construct(VoteProjectRepository $repository, VoteProjectValidator $validator)
+    public function __construct()
     {
-        $this->repository = $repository;
-        $this->validator  = $validator;
+
     }
 
 
     public function ranking($id)
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $voteRanking = $this->repository->with(['voteItem'])->find($id);
-
+        $voteProject = VoteProject::active()->findOrFail($id);
+        $voteItems =  $voteProject->voteItem()->active()->paginate(10);
         if (request()->wantsJson()) {
-
             return response()->json([
-                'data' => $voteRanking,
+                'status' => 'success',
+                'voteItems' => $voteItems->toJson(),
             ]);
         }
-
-        return view('vote-projects.ranking', compact('voteRanking'));
+        return view('vote-projects.ranking', compact('voteProject','voteItems'));
     }
 
     public function search(Request $request,$id)
     {
-        if ($request->isMethod('POST')){
-            $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-            $voteSearch = $this->repository->with(
-                ['voteItem' => function ($query) use($request) {
-                    $search =  $request->input('search');
-                    $query->where('id', '=', $search);
+        $voteProject = VoteProject::active()->findOrFail($id);
+        $voteItems=[];
+        if (request()->post()) {
+            $this->validate($request, [
+                'search_txt' => 'required',
+            ]);
+            $voteItems =  $voteProject->voteItem()->active()->where(
+                function($query)use($request){
+                    $search =  $request->input('search_txt');
+                    $query->where('item_no', '=', $search);
                     $query->orWhere('name', 'like', '%'.$search.'%');
                     $query->orderBy('created_at', 'desc');
-                }])->find($id);
-            if (request()->wantsJson()) {
-                return response()->json([
-                    'data' => $voteSearch,
-                ]);
-            }
+                }
+            )->get();
         }
-        return view('vote-projects.search', compact('voteSearch'));
+        return view('vote-projects.search', compact('voteProject','voteItems'));
     }
 
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($id)
+    public function index(Request $request,$id)
     {
-        $voteProject = $this->repository->with(['voteItem'])->find($id);
+        $voteProject = VoteProject::with(['voteItem' => function ($query) {
+            $query->myitem();
+        }])->active()->findOrFail($id);
 
-        if (request()->wantsJson()) {
-
+        $sortBy = $request->input('sortBy');
+        $voteItems = $voteProject->voteItem()->active()
+            ->when($sortBy, function ($query) use ($sortBy) {
+                if($sortBy=='vote'){
+                    return $query->orderBy('voted','desc');
+                }elseif ($sortBy=='time'){
+                    return $query->orderBy('created_at','desc');
+                }else{
+                    return $query->orderBy('id','asc');
+                }
+            }, function ($query) {
+                return $query->orderBy('id','asc');
+            })->paginate(10);
+        if (request()->ajax()  || request()->wantsJson()) {
             return response()->json([
-                'data' => $voteProject,
+                'status' => 'success',
+                'voteItems' => $voteItems->toJson(),
             ]);
         }
-        return view('vote-projects.index', compact('voteProject'));
+        if(request()->isMethod('GET')){
+            $voteProject->visitd += 1;
+            $voteProject->save();
+        }
+        return view('vote-projects.index', compact('voteProject','voteItems'));
     }
+
+
+    public function info($id)
+    {
+        $voteProject = VoteProject::active()->findOrFail($id);
+        return view('vote-projects.info', compact('voteProject'));
+    }
+
+
 
     public function register(Request $request, $id)
     {
-        $voteProject = $this->repository->with(['voteItem'])->find($id);
+        $voteProject = VoteProject::with(['voteItem' => function ($query) {
+            $query->myitem();
+        }])->active()->findOrFail($id);
 
-        if (request()->wantsJson()) {
-            foreach($request->file('images') as $file) {
-                $file = $request->file('image');
-                $path = $file->store('avatars', 'uploads');
+        if (request()->ajax()) {
+            $this->validate($request, [
+                'images' => 'required',
+                'name' => 'required',
+                'desc' => 'required',
+            ]);
+            $files = $request->file('images');
+            $filePath =[];
+            foreach ($files as $key => $value) {
+                // 判断图片上传中是否出错
+                if (!$value->isValid()) {
+                    exit("上传图片出错，请重试！");
+                }
+                if(!empty($value)){//此处防止没有多文件上传的情况
+                    $allowed_extensions = ["png", "jpg", "gif"];
+                    if ($value->getClientOriginalExtension() && !in_array($value->getClientOriginalExtension(), $allowed_extensions)) {
+                        exit('您只能上传PNG、JPG或GIF格式的图片！');
+                    }
+                    $destinationPath = '/uploads/'.date('Y-m-d'); // public文件夹下面uploads/xxxx-xx-xx 建文件夹
+                    $extension = $value->getClientOriginalExtension();   // 上传文件后缀
+                    $fileName = date('YmdHis').mt_rand(100,999).'.'.$extension; // 重命名
+                    $value->move(public_path().$destinationPath, $fileName); // 保存图片
+                    $filePath[] = $destinationPath.'/'.$fileName;
+                }
             }
 
+            $voteItem =  new VoteItem();
+            $voteItem->openid =11;
+            $voteItem->main_image= current($filePath);
+            $voteItem->images= $filePath;
+            $voteItem->name= '';
+            $voteItem->desc= '';
+            $voteProject->voteItem()->save($voteItem);
+
             return response()->json([
-                'data' => $voteProject,
+                'data' => '1',
             ]);
         }
+
         return view('vote-projects.register', compact('voteProject'));
     }
 

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>投票首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/icons-extra.css" />
+    <link rel="stylesheet" href="./js/mescroll.min.css">
+    <link rel="stylesheet" href="./css/mescroll-option.css">
+
+    <style>
+        .mui-control-content {
+            background-color: white;
+            /*min-height: 215px;*/
+        }
+        .mui-control-content .mui-loading {
+            margin-top: 50px;
+        }
+        #slider1,#slider1 img{
+            height: 220px;
+        }
+        .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body.blue{
+        color:#00B0F0;
+    }
+        .mui-search .mui-placeholder{
+            line-height: 40px;
+        }
+        .mui-grid-view.mui-grid-9 .mui-media .mui-icon{
+            font-size:1.4rem;
+        }
+        .mui-btn-block {
+            font-size: 18px;
+            display: block;
+            width: 40%;
+            margin: 0 auto;
+            padding: 6px 0;
+            background-color:#00B0F0;
+            color: #fff;
+        }
+        .mui-btn-block2 {
+            font-size: 14px;
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            padding: 6px 0;
+            background-color:#00B0F0;
+            color: #fff;
+        }
+        .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar{
+            background-color:#00B0F0;
+        }
+        .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+            color:#00B0F0;
+
+        }
+        .mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+            border-bottom: 2px solid #00B0F0;
+        }
+        .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object{
+            height: 140px;
+        }
+        .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body2{
+            background-color:#f8f8f8;text-align:left;height:34px;line-height:34px;padding:0 4px;margin-top:0;
+        }
+        .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body3{
+            background-color:#f8f8f8;height:30px;line-height:30px;padding:0 4px;margin-top:0;
+        }
+        .mui-bar-tab .mui-tab-item.mui-active {
+            color: #00B0F0;
+        }
+    </style>
+</head>
+
+<body>
+<div id="mescroll"  class=" mescroll">
+    <div id="slider1" class="mui-content mui-slider mui-slider1" >
+        <div class="mui-slider-group mui-slider-loop">
+            <!--额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#">
+                    <img src="./img/2.jpg">
+                </a>
+            </div>
+            <!-- 第一张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="./img/1.png">
+                </a>
+            </div>
+            <!-- 第二张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="./img/2.jpg">
+                </a>
+            </div>
+            <!--额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#">
+                    <img src="./img/1.png">
+                </a>
+            </div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <div class="mui-indicator"></div>
+        </div>
+    </div>
+
+    <div class="mui-content" style="">
+        <ul class="mui-table-view mui-grid-view mui-grid-9" style="margin-top:0;background-color: #fff">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-bottom:none;">
+                <a href="#" style="padding:0;">
+                    <span class="mui-media-body blue">214</span>
+                    <div class="mui-media-body">参与选手</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-bottom:none;">
+                <a href="#" style="padding:0;">
+                    <span class="mui-media-body blue">43909</span>
+                    <div class="mui-media-body">累计投票</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-bottom:none;">
+                <a href="#" style="padding:0;">
+                    <span class="mui-media-body blue">999898</span>
+                    <div class="mui-media-body">访问量</div>
+                </a>
+            </li>
+        </ul>
+        <div class="mui-content-padded" style="margin: 10px 0 0 0;">
+            <div class="mui-input-row mui-search" style="line-height:40px;">
+                <input type="search" class="mui-input-clear" placeholder="搜索选项编号或名称" style="height: 40px;border-radius:0;background-color:#fff;margin-bottom:0;">
+            </div>
+        </div>
+        <ul class="mui-table-view mui-grid-view mui-grid-9" style="margin-top:0;border:0;">
+            <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border:none;background-color:#f0f0f0">
+                <a href="text.html" style="padding:0;">
+                    <span class="mui-icon mui-icon-help" style="color:#00B0F0;"></span>
+                    <div class="mui-media-body blue">活动介绍</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-9 mui-col-sm-9" style="border:none;background-color:#f8f8f8;">
+                <a href="#" style="padding:0;">
+                    <span class="mui-media-body">距离活动截止还有</span>
+                    <div class="mui-media-body">
+                        <span id="day_show">0天</span>
+                        <span id="hour_show">0时</span>
+                        <span id="minute_show">0分</span>
+                        <span id="second_show">0秒</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <div style="width:100%;padding:14px 0;background-color:#fff;"><a type="button" class="mui-btn mui-btn-block" href="baoming.html">我要报名</a></div>
+
+
+        <div style="margin: 10px 0 0 0">
+            <div id="slider" class="mui-slider tab1">
+                <div  class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted " style="background-color:#fff;height:40px;">
+                    <div class="tabBox" style="width:100%;">
+                        <div class="mui-control-item mui-active" i="0">
+                            默认排序
+                        </div>
+                        <div class="mui-control-item" i="1">
+                            最新参与
+                        </div>
+                        <div class="mui-control-item"  i="2">
+                            人气排行
+                        </div>
+                    </div>
+                </div>
+                <div class="mui-slider-group" style="height:auto">
+                    <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                        <div class="xiala">
+                            <div class="">
+                                <ul id="dataList" class="mui-table-view mui-grid-view la data-list">
+                                    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+                                        <div>
+                                            <a href="details.html"><img class="mui-media-object" src="./img/1.png"></a>
+                                           <div class="mui-media-body mui-media-body2">
+                                               <span class="mui-badge" style="font-size:14px;margin-right:4px;">1</span>
+                                               迎接新年礼物
+                                           </div>
+                                           <div style="width:100%;padding:0 4px;background-color:#f8f8f8;"class="voteBox">
+                                               <span type="button" class="mui-btn mui-btn-block mui-btn-block2" onclick="vote(this)">我要投票<i style="display:none">0</i></span>
+                                           </div>
+                                            <div class="mui-media-body mui-media-body3 blue num"><span>357</span>票</div></div>
+                                    </li>
+                                    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+                                        <div>
+                                            <a href="details.html"><img class="mui-media-object" src="./img/1.png"></a>
+                                            <div class="mui-media-body mui-media-body2">
+                                                <span class="mui-badge" style="font-size:14px;margin-right:4px;">1</span>
+                                                迎接新年礼物
+                                            </div>
+                                            <div style="width:100%;padding:0 4px;background-color:#f8f8f8;"class="voteBox">
+                                                <span type="button" class="mui-btn mui-btn-block mui-btn-block2" onclick="vote(this)">我要投票<i style="display:none">0</i></span>
+                                            </div>
+                                            <div class="mui-media-body mui-media-body3 blue num"><span>357</span>票</div></div>
+                                    </li>
+                                    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+                                        <div>
+                                            <a href="details.html"><img class="mui-media-object" src="./img/1.png"></a>
+                                            <div class="mui-media-body mui-media-body2">
+                                                <span class="mui-badge" style="font-size:14px;margin-right:4px;">1</span>
+                                                迎接新年礼物
+                                            </div>
+                                            <div style="width:100%;padding:0 4px;background-color:#f8f8f8;"class="voteBox">
+                                                <span type="button" class="mui-btn mui-btn-block mui-btn-block2" onclick="vote(this)">我要投票<i style="display:none">0</i></span>
+                                            </div>
+                                            <div class="mui-media-body mui-media-body3 blue num"><span>357</span>票</div></div>
+                                    </li>
+                                    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+                                        <div>
+                                            <a href="details.html"><img class="mui-media-object" src="./img/1.png"></a>
+                                            <div class="mui-media-body mui-media-body2">
+                                                <span class="mui-badge" style="font-size:14px;margin-right:4px;">1</span>
+                                                迎接新年礼物
+                                            </div>
+                                            <div style="width:100%;padding:0 4px;background-color:#f8f8f8;"class="voteBox">
+                                                <span type="button" class="mui-btn mui-btn-block mui-btn-block2" onclick="vote(this)">我要投票<i style="display:none">0</i></span>
+                                            </div>
+                                            <div class="mui-media-body mui-media-body3 blue num"><span>357</span>票</div></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="mui-bar mui-bar-tab" style="background-color: #fff;">
+    <a class="mui-tab-item mui-active" href="index.html">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item" href="rank.html">
+        <span class="mui-icon mui-icon-extra mui-icon-extra-rank"></span>
+        <span class="mui-tab-label">排行</span>
+    </a>
+    <a class="mui-tab-item" href="search.html">
+        <span class="mui-icon mui-icon-search"></span>
+        <span class="mui-tab-label">搜索</span>
+    </a>
+    <a class="mui-tab-item" href="baoming.html" target="_blank">
+        <span class="mui-icon mui-icon-compose"></span>
+        <span class="mui-tab-label">报名</span>
+    </a>
+</nav>
+<script src="./js/mui.min.js"></script>
+<script src="./js/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/layer.js"></script>
+<script type="text/javascript" charset="utf-8">
+    mui('body').on('tap', 'a', function () { document.location.href = this.href; });
+    //获得slider插件对象
+    var gallery = mui('.mui-slider1');
+    gallery.slider({
+        interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+    });
+
+    $(function(){
+        //创建MeScroll对象
+        var mescroll = initMeScroll("mescroll", {
+            down:{
+                use : false,
+                auto:false,//是否在初始化完毕之后自动执行下拉回调callback; 默认true
+            },
+            up: {
+                auto:true,//初始化完毕,是否自动触发上拉加载的回调
+                isBoth: true, //上拉加载时,如果滑动到列表顶部是否可以同时触发下拉刷新;默认false,两者不可同时触发; 这里为了演示改为true,不必等列表加载完毕才可下拉;
+                callback: upCallback, //上拉加载的回调
+                isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+                toTop:{ //配置回到顶部按钮
+                    src : "./img/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+                    //offset : 1000
+                }
+            }
+        });
+        /*初始化菜单*/
+        var pdType=0;//全部商品0; 奶粉1; 面膜2; 图书3;
+        $(".tabBox div").click(function(){
+            var i=$(this).attr("i");
+            if(pdType!=i) {
+                //更改列表条件
+                pdType=i;
+                $(".tabBox .mui-active").removeClass("mui-active");
+                $(this).addClass("mui-active");
+                //重置列表数据
+                mescroll.resetUpScroll();
+            }
+        })
+
+        /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+        function upCallback(page){
+            //联网加载数据
+            getListDataFromNet(page.num, page.size, function(curPageData){
+                //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+                //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+                console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length);
+
+                //方法一(推荐): 后台接口有返回列表的总页数 totalPage
+                //mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+                //方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+                //mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+
+                //方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+                //mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+                //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+                mescroll.endSuccess(curPageData.length);
+
+                //设置列表数据
+                setListData(curPageData, true);
+            }, function(){
+                //联网失败的回调,隐藏上拉加载的状态
+                mescroll.endErr();
+            });
+        }
+
+        /*设置列表数据*/
+        function setListData(curPageData,isAppend){
+            var listDom=document.getElementById("dataList");
+            for (var i = 0; i < curPageData.length; i++) {
+                var pd=curPageData[i];
+
+                var str=' <div> <a href="details.html"><img class="mui-media-object" src="'+pd.pdImg+'"></a>';
+                str+='<div class="mui-media-body mui-media-body2"><span class="mui-badge" style="font-size:14px;margin-right:4px;">'+pd.pdId+'</span>'+pd.pdText+'</div>';
+                str+='<div style="width:100%;padding:0 4px;background-color:#f8f8f8;"class="voteBox"><span type="button" class="mui-btn mui-btn-block mui-btn-block2" onclick="vote(this)">我要投票<i style="display:none">0</i></span></div>';
+                str+='<div class="mui-media-body mui-media-body3 blue num"><span>'+pd.pdNum+'</span>票</div></div>';
+
+                var liDom=document.createElement("li");
+                liDom.className = 'mui-table-view-cell mui-media mui-col-xs-6';
+                liDom.innerHTML=str;
+
+                if (isAppend) {
+                    listDom.appendChild(liDom);//加在列表的后面,上拉加载
+                } else{
+                    listDom.insertBefore(liDom, listDom.firstChild);//加在列表的前面,下拉刷新
+                }
+            }
+        }
+
+        /*联网加载列表数据
+         在您的实际项目中,请参考官方写法: http://www.mescroll.com/api.html#tagUpCallback
+         请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
+         实际项目以您服务器接口返回的数据为准,无需本地处理分页.
+         * */
+        function getListDataFromNet(pageNum,pageSize,successCallback,errorCallback) {
+            //延时一秒,模拟联网
+            setTimeout(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'new.json',
+//		                url: '../res/pdlist1.json?num='+pageNum+'&size='+pageSize,
+                    dataType: 'json',
+                    success: function(data){
+                        var listData=[];
+
+                       /* if(pageNum==0){
+                            //此处模拟下拉刷新返回的数据
+                            var i = Math.floor(Math.random() * data.length);//随机取一个商品返回
+                            data[i].pdName="【新增商品】 商品标题";
+                            listData.push(data[i]);
+
+                        }else{
+                            //此处模拟上拉加载返回的数据 (模拟分页数据)
+                            for (var i = (pageNum-1)*pageSize; i < pageNum*pageSize; i++) {
+                                if(i==data.length) break;
+                                listData.push(data[i]);
+                            }
+                        }*/
+                        //pdType 全部商品0; 奶粉1; 面膜2; 图书3;
+                        if(pdType==0){
+                            //全部商品 (模拟分页数据)
+                            for (var i = (pageNum-1)*pageSize; i < pageNum*pageSize; i++) {
+                                if(i==data.length) break;
+                                listData.push(data[i]);
+                            }
+
+                        }else if(pdType==1){
+                            //奶粉
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].pdName.indexOf("奶粉")!=-1) {
+                                    listData.push(data[i]);
+                                }
+                            }
+
+                        }else if(pdType==2){
+                            //面膜
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].pdName.indexOf("面膜")!=-1) {
+                                    listData.push(data[i]);
+                                }
+                            }
+
+                        }
+                        //回调
+                        successCallback(listData);
+                    },
+                    error: errorCallback
+                });
+            },2000)
+        }
+
+    });
+
+    function vote(e){
+        var num=$(e).parent('.voteBox').siblings('.num').find("span").text();
+        var n=$(e).children("i").text();
+            if(n<2){
+                num++;
+                n++;
+                $(e).parent('.voteBox').siblings('.num').find("span").text(num);
+                $(e).children("i").text(n);
+                layer.open({
+                    content: '感谢您的投票'
+                    ,skin: 'msg'
+                    ,time: 1 //2秒后自动关闭
+                });
+            }else{
+                layer.open({
+                    content: '您只能投两票'
+                    ,skin: 'msg'
+                    ,time: 1 //2秒后自动关闭
+                });
+            }
+    }
+</script>
+<script type="text/javascript">
+    var intDiff = parseInt(1123200);//倒计时总秒数量
+    function timer(intDiff){
+        window.setInterval(function(){
+            var day=0,
+                hour=0,
+                minute=0,
+                second=0;//时间默认值
+            if(intDiff > 0){
+                day = Math.floor(intDiff / (60 * 60 * 24));
+                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            $('#day_show').html(day+"天");
+            $('#hour_show').html('<s id="h"></s>'+hour+'时');
+            $('#minute_show').html('<s></s>'+minute+'分');
+            $('#second_show').html('<s></s>'+second+'秒');
+            intDiff--;
+        }, 1000);
+    }
+    $(function(){
+        timer(intDiff);
+    });
+</script>
+</body>
+
+</html>
+

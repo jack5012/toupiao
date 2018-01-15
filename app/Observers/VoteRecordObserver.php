@@ -19,6 +19,8 @@ class VoteRecordObserver
         }*/
         $voteRecord->voteItem->voted += 1;
         $voteRecord->voteItem->save();
+        $voteRecord->voteItem->voteProject->voted  += 1;
+        $voteRecord->voteItem->voteProject->save();
     }
 
     public function deleted(VoteRecord $voteRecord)

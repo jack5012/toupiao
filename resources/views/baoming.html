@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ch" class="feedback">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>报名</title>
+    <link rel="stylesheet" type="text/css" href="./css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/icons-extra.css" />
+    <link rel="stylesheet" type="text/css" href="./css/feedback.css" />
+    <style>
+        #slider1,#slider1 img{
+            height: 220px;
+        }
+        .grey{color: #929292;}
+        .mui-table-view .mui-table-view-cell.mui-media-icon .mui-media-object .mui-icon {
+            font-size: 20px;
+        }
+        .mui-table-view .mui-table-view-cell.mui-media-icon .mui-media-body:after{
+            height:0;
+        }
+        .mui-btn-block {
+            font-size: 18px;
+            display: block;
+            width: 40%;
+            margin: 0 auto;
+            padding: 6px 0;
+            background-color:#00B0F0;
+            color: #fff;
+        }
+        .mui-btn-block3 {
+            font-size: 18px;
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 0;
+            background-color:#00B0F0;
+            color: #fff;
+        }
+        .mui-media-body{
+            font-size: 15px;
+            color:#333;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="slider1" class="mui-content mui-slider mui-slider1" >
+    <div class="mui-slider-group mui-slider-loop">
+        <!--额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+        <div class="mui-slider-item mui-slider-item-duplicate">
+            <a href="#">
+                <img src="./img/2.jpg">
+            </a>
+        </div>
+        <!-- 第一张 -->
+        <div class="mui-slider-item">
+            <a href="#">
+                <img src="./img/1.png">
+            </a>
+        </div>
+        <!--  第二张 -->
+         <div class="mui-slider-item">
+             <a href="#">
+                 <img src="./img/2.jpg">
+             </a>
+         </div>
+         <!--额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+        <div class="mui-slider-item mui-slider-item-duplicate">
+            <a href="#">
+                <img src="./img/1.png">
+            </a>
+        </div>
+    </div>
+    <div class="mui-slider-indicator">
+        <div class="mui-indicator mui-active"></div>
+        <div class="mui-indicator"></div>
+    </div>
+</div>
+<div class="mui-content">
+    <ul class="mui-table-view mui-unfold" style="margin-top:0; padding:10px 0">
+        <li class="mui-table-view-cell mui-media mui-media-icon">
+            <a href="javascript:;">
+                <div class="mui-media-object mui-pull-left"><span class="mui-icon mui-icon-extra mui-icon-extra-outline grey"></span>
+                </div>
+                <div class="mui-media-body">
+                    <div>报名开始时间:<span>2017-12-14 15:00:00</span></div>
+                    <div>报名结束时间:<span>2017-12-14 15:00:00</span></div>
+                </div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-media-icon">
+            <a href="javascript:;">
+                <div class="mui-media-object mui-pull-left"><span class="mui-icon mui-icon-compose grey"></span>
+                </div>
+                <div class="mui-media-body">
+                    当前报名状态：<span style="color:#dfb58f">还未报名</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <div style="width:100%;padding:14px 0;background-color:#fff;"><a type="button" class="mui-btn mui-btn-block" href="index.html">查看竞争对手</a></div>
+    <p>图片上传(可最多上传3张照片)</p>
+    <div id='image-list' class="row image-list">
+
+    </div>
+    <div class="mui-content-padded">
+        <div class="mui-inline">新年祝福</div>
+        <a class="mui-pull-right mui-inline" href="#popover">
+            快捷输入
+            <span class="mui-icon mui-icon-arrowdown"></span>
+        </a>
+        <!--快捷输入具体内容，开发者可自己替换常用语-->
+        <div id="popover" class="mui-popover">
+            <div class="mui-popover-arrow"></div>
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view">
+                        <!--仅流应用环境下显示-->
+                        <li class="mui-table-view-cell stream">
+                            <a href="#">新年快乐</a>
+                        </li>
+                        <li class="mui-table-view-cell"><a href="#">快乐</a></li>
+                        <li class="mui-table-view-cell"><a href="#">拍拍手</a></li>
+                        <li class="mui-table-view-cell"><a href="#">hello</a></li>
+                        <li class="mui-table-view-cell"><a href="#">哟西</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mui-input-row">
+        <textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+    </div>
+    <p>QQ/邮箱</p>
+    <div class="mui-input-row">
+        <input id='contact' type="text" class="mui-input-clear contact" placeholder="(选填,方便我们联系你 )" />
+    </div>
+    <div style="width:100%;padding:14px 10px;background-color:#fff;"><button id="submit" class="mui-btn mui-btn-blue mui-btn-block3 mui-btn-link">立即报名</button></div>
+
+</div>
+<script src="./js/mui.min.js"></script>
+<script src=" ./js/feedback.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    mui.init();
+    mui('.mui-scroll-wrapper').scroll();
+</script>
+</body>
+
+</html>

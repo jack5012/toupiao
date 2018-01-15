@@ -20,7 +20,7 @@ class VoteRecord extends Model implements Transformable
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = [];
+    protected $fillable = ['openid'];
 
     public static function boot()
     {

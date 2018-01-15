@@ -11,6 +11,12 @@ class VoteItemObserver
 
     }
 
+    public function creating(VoteItem $voteItem)
+    {
+        $no = VoteItem::where('vote_projects_id',$voteItem->vote_projects_id)->max('item_no');
+        $voteItem->item_no = $no+ 1;
+    }
+
     public function created(VoteItem $voteItem)
     {
         $voteItem->voteProject->involved += 1;
@@ -19,8 +25,20 @@ class VoteItemObserver
 
     public function saving(VoteItem $voteItem)
     {
-        $voteItem->main_image = $voteItem->images[0];
+        if($voteItem->isDirty('images')){
+            $voteItem->main_image = $voteItem->images[0];
+        }
+
     }
+
+    /*public function saved(VoteItem $voteItem)
+    {
+        if($voteItem->isDirty('voted')){
+            $voteItem->voteProject->voted += 1;
+            $voteItem->voteProject->save();
+        }
+
+    }*/
 
     public function deleted(VoteItem $voteItem)
     {

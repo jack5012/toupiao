@@ -51,4 +51,16 @@ class VoteItem extends Model implements Transformable
         return json_decode($images, true);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::REVIEWD);
+    }
+
+    public function scopeMyitem($query)
+    {
+        return $query->where('openid', session('wechat.oauth_user')->getId());
+    }
+
+
+
 }
