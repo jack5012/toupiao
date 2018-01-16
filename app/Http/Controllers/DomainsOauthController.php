@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Log;
 
 class DomainsOauthController extends Controller
@@ -17,6 +17,8 @@ class DomainsOauthController extends Controller
 
     protected function getTargetUrl($request)
     {
-        return $request->get('domains').(empty($queries) ? '' : '?').http_build_query($queries);
+        $domain = $request->get('domain');
+        $code = $request->get('code');
+        return $domain.(strpos($domain,'?') ? '&' : '?').'code='.$code;
     }
 }

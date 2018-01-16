@@ -9,4 +9,8 @@ class WechatUserInfo extends Model
 {
     protected $fillable = [];
 
+    public $timestamps = false;
+
+    protected $table = 'wechat_user_info';
+
 }
