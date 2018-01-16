@@ -40,6 +40,23 @@
             font-size: 15px;
             color:#333;
         }
+        #inputBox{
+            float: left;
+            overflow: hidden;
+
+        }
+        #inputBox input{
+            width: 114%;
+            height: 40px;
+            opacity: 0;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: -14%;
+
+        }
+
+
     </style>
 </head>
 
@@ -105,20 +122,23 @@
     </ul>
     <div style="width:100%;padding:14px 0;background-color:#fff;"><a type="button" class="mui-btn mui-btn-block" href="{{ action("VoteProjectsController@index", [ $voteProject->id ]) }}">查看竞争对手</a></div>
     <p>图片上传(可最多上传3张照片)</p>
-    <div id='image-list' class="row image-list">
 
-    </div>
+    <div id="image-list" class="row image-list">
+        <form id="upBox">
+            <div id='imgBox'></div>
+            <div class="image-item space" id="inputBox">
+                <input type="file" title="请选择图片" id="file" multiple="" accept="image/png,image/jpg,image/gif,image/JPEG">
+                <div class="image-up"></div>
+            </div>
 
-    <p>图片主题</p>
-    <div class="mui-input-row">
-        <input id='contact' type="text" name="name" class="mui-input-clear contact" placeholder="" />
+        </form>
     </div>
     <div class="mui-content-padded">
-        <div class="mui-inline">图片介绍</div>
-        {{--<a class="mui-pull-right mui-inline" href="#popover">
+        <div class="mui-inline">新年祝福</div>
+        <a class="mui-pull-right mui-inline" href="#popover">
             快捷输入
             <span class="mui-icon mui-icon-arrowdown"></span>
-        </a>--}}
+        </a>
         <!--快捷输入具体内容，开发者可自己替换常用语-->
         <div id="popover" class="mui-popover">
             <div class="mui-popover-arrow"></div>
@@ -127,7 +147,7 @@
                     <ul class="mui-table-view">
                         <!--仅流应用环境下显示-->
                         <li class="mui-table-view-cell stream">
-                            <a href="#"></a>
+                            <a href="#">新年快乐</a>
                         </li>
                         <li class="mui-table-view-cell"><a href="#">快乐</a></li>
                         <li class="mui-table-view-cell"><a href="#">拍拍手</a></li>
@@ -140,45 +160,32 @@
         </div>
     </div>
     <div class="row mui-input-row">
-        <textarea id='question' name="desc" class="mui-input-clear question" placeholder="请填写你的简单描述..."></textarea>
+        <textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
     </div>
-
+    <p>QQ/邮箱</p>
+    <div class="mui-input-row">
+        <input id='contact' type="text" class="mui-input-clear contact" placeholder="(选填,方便我们联系你 )" />
+    </div>
     <div style="width:100%;padding:14px 10px;background-color:#fff;"><button id="submit" class="mui-btn mui-btn-blue mui-btn-block3 mui-btn-link">立即报名</button></div>
 
 </div>
 <script src="{{ asset('/js/mui.min.js') }}"></script>
-<script src="{{ asset('/js/feedback.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('/js/baoming.js') }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     mui.init();
     mui('.mui-scroll-wrapper').scroll();
+
+    imgUpload({
+        inputId:'file', //input框id
+        imgBox:'imgBox', //图片容器id
+        buttonId:'btn', //提交按钮id
+        upUrl:'php/imgFile.php',  //提交地址
+        data:'file1', //参数名
+        num:"3"//上传个数
+    })
+
 </script>
 </body>
 
 </html>
-<script type="text/javascript">
-    $(".form-horizontal").on('submit',function(e) {
-        e.preventDefault();
-        var formData = new FormData($(".form-horizontal")[0]);
-        console.log(formData)
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: 'POST',
-            url: '/vote-project/1/register',
-            data: formData,
-            processData: false,
-            //mimeType:"multipart/form-data",
-            contentType: false,
-            cache: false,
-            success: function (data) {
-                console.log(1);
-
-            },
-            error: function (error) {
-               console.log(error)
-            }
-        });
-    })
-</script>
