@@ -23,6 +23,8 @@ Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
     });
 });
 
+Route::any('domains-oauth', 'DomainsOauthController');
+
 Route::group(['middleware' => ['web', 'wechat.oauth:snsapi_userinfo']], function () {
     Route::any('vote-project/{id}', 'VoteProjectsController@index');
     Route::get('vote-project/{id}/info', 'VoteProjectsController@info');

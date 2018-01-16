@@ -128,11 +128,11 @@ class VoteProjectsController extends Controller
             }
 
             $voteItem =  new VoteItem();
-            $voteItem->openid =11;
+            $voteItem->openid =session('wechat.oauth_user')->getId();;
             $voteItem->main_image= current($filePath);
             $voteItem->images= $filePath;
-            $voteItem->name= '';
-            $voteItem->desc= '';
+            $voteItem->name= $request->post('name');
+            $voteItem->desc= $request->post('desc');;
             $voteProject->voteItem()->save($voteItem);
 
             return response()->json([

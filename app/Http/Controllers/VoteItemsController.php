@@ -54,47 +54,6 @@ class VoteItemsController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  VoteItemUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     */
-    public function update(VoteItemUpdateRequest $request, $id)
-    {
-
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $voteItem = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'VoteItem updated.',
-                'data'    => $voteItem->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
-    }
 
     public function vote(VoteItemUpdateRequest $request)
     {
