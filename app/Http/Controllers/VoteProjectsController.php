@@ -24,7 +24,7 @@ class VoteProjectsController extends Controller
     public function ranking($id)
     {
         $voteProject = VoteProject::active()->findOrFail($id);
-        $voteItems =  $voteProject->voteItem()->active()->paginate(10);
+        $voteItems =  $voteProject->voteItem()->active()->orderBy('voted','desc')->paginate(10);
         if (request()->wantsJson()) {
             return response()->json([
                 'status' => 'success',
