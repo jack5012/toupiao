@@ -145,6 +145,10 @@ class VoteProjectsController extends Controller
                 $voteItem->desc= $request->post('desc');
                 $voteItem->status= VoteItem::REVIEWING;
                 $voteItem->save();
+                return response()->json([
+                    'success'   => true,
+                    'message' => '修改成功,等待审核'
+                ]);
             }else{
                 $voteItem =  new VoteItem();
                 $voteItem->openid =session('wechat.oauth_user')->getId();;
@@ -153,13 +157,12 @@ class VoteProjectsController extends Controller
                 $voteItem->name= $request->post('name');
                 $voteItem->desc= $request->post('desc');;
                 $voteProject->voteItem()->save($voteItem);
+                return response()->json([
+                    'success'   => true,
+                    'message' => '参加成功,等待审核'
+                ]);
             }
 
-
-            return response()->json([
-                'success'   => true,
-                'message' => '参加成功,等待审核'
-            ]);
         }
 
         if($voteProject->voteItem->isNotEmpty()){
