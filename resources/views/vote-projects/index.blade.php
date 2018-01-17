@@ -269,8 +269,8 @@
             }
         });
         var pdType='default';
-        $(".tabBox div").click(function(event){
-            event.preventDefault();
+
+        mui('.tabBox').on('tap', 'div', function(){
             var i=$(this).attr("i");
             if(pdType!=i) {
                 //更改列表条件

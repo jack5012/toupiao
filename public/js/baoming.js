@@ -83,7 +83,11 @@ function submitPicture(url,data) {
             processData: false,
             contentType: false,
             success: function(dat) {
+                alert(dat)
                 console.log(dat);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
             }
         });
     }else{
