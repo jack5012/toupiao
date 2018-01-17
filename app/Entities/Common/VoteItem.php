@@ -15,10 +15,11 @@ class VoteItem extends Model implements Transformable
 
     use SoftDeletes;
 
-    const UNREVIEW = 0;
+    const REVIEWING = 0;
     const REVIEWD = 1;
-    const LOCKED = 2;
-    public static $_status = [self::UNREVIEW=>'未审核',self::REVIEWD=>'审核通过',self::LOCKED=>'锁定'];
+    const UNREVIEW = 2;
+    const LOCKED = 3;
+    public static $_status = [self::REVIEWING=>'审核中',self::REVIEWD=>'审核通过',self::UNREVIEW=>'审核未通过',self::LOCKED=>'锁定'];
 
     protected $dates = ['deleted_at'];
     protected $fillable = [];

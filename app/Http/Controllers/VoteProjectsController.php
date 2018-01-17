@@ -101,7 +101,7 @@ class VoteProjectsController extends Controller
         }])->active()->findOrFail($id);
 
         if (request()->ajax()) {
-            if($voteProject->voteItem->isNotEmpty()){
+            if($voteProject->voteItem->isNotEmpty() && $voteProject->voteItem->first()->status != VoteItem::UNREVIEW){
                 return response()->json([
                     'error'   => true,
                     'message' => '不能重复参加'
@@ -137,25 +137,57 @@ class VoteProjectsController extends Controller
                     $filePath[] = $destinationPath.'/'.$fileName;
                 }
             }
+            if($voteProject->voteItem->isNotEmpty()){
+                $voteItem = $voteProject->voteItem->first();
+                $voteItem->main_image= current($filePath);
+                $voteItem->images= $filePath;
+                $voteItem->name= $request->post('name');
+                $voteItem->desc= $request->post('desc');
+                $voteItem->status= VoteItem::REVIEWING;
+                $voteItem->save();
+            }else{
+                $voteItem =  new VoteItem();
+                $voteItem->openid =session('wechat.oauth_user')->getId();;
+                $voteItem->main_image= current($filePath);
+                $voteItem->images= $filePath;
+                $voteItem->name= $request->post('name');
+                $voteItem->desc= $request->post('desc');;
+                $voteProject->voteItem()->save($voteItem);
+            }
 
-            $voteItem =  new VoteItem();
-            $voteItem->openid =session('wechat.oauth_user')->getId();;
-            $voteItem->main_image= current($filePath);
-            $voteItem->images= $filePath;
-            $voteItem->name= $request->post('name');
-            $voteItem->desc= $request->post('desc');;
-            $voteProject->voteItem()->save($voteItem);
 
             return response()->json([
                 'success'   => true,
                 'message' => '参加成功,等待审核'
             ]);
         }
-        $status = '还未报名';
+
         if($voteProject->voteItem->isNotEmpty()){
-            $voteProject->voteItem->first()->status==1;
+            $voteItem = $voteProject->voteItem->first();
+            if($voteItem->status ==VoteItem::REVIEWING){
+                //审核中
+                $status ='审核中';
+                return view('vote-projects.register.reviewing', compact('voteProject','status','voteItem'));
+
+            }elseif($voteItem->status ==VoteItem::REVIEWD){
+                //审核通过
+                $status ='审核通过';
+                return view('vote-projects.register.reviewing', compact('voteProject','status','voteItem'));
+
+            }elseif($voteItem->status ==VoteItem::UNREVIEW){
+                //未通过
+                $status ='审核未通过';
+                return view('vote-projects.register.unreview', compact('voteProject','status','voteItem'));
+
+            }elseif($voteItem->status ==VoteItem::LOCKED){
+                //锁定
+                $status ='锁定';
+                return view('vote-projects.register.reviewing', compact('voteProject','status','voteItem'));
+
+            }
         }
-        return view('vote-projects.register', compact('voteProject'));
+        $status = '还未报名';
+        return view('vote-projects.register.register', compact('voteProject','status'));
     }
 
 

@@ -116,7 +116,7 @@
                 <div class="mui-media-object mui-pull-left"><span class="mui-icon mui-icon-compose grey"></span>
                 </div>
                 <div class="mui-media-body">
-                    当前报名状态：<span style="color:#dfb58f">还未报名</span>
+                    当前报名状态：<span style="color:#dfb58f">{{$status}}</span>
                 </div>
             </a>
         </li>
@@ -126,68 +126,33 @@
     <form id="upBox">
     <div id="image-list" class="row image-list">
 
-            <div id='imgBox'></div>
-            <div class="image-item space" id="inputBox">
-                <input type="file" title="请选择图片" id="file" multiple="" accept="image/png,image/jpg,image/gif,image/JPEG">
-                <div class="image-up"></div>
+        @foreach ($voteItem->images as $v)
+            <div id='imgBox'>
+                <div class="image-item" style="float:left">
+                    <img title='' alt='' src='{{asset('uploads/'.$v)}}' onclick="imgDisplay(this)" style="width: 100%;height: 100%;">
+                </div>
             </div>
+        @endforeach
+
 
 
     </div>
     <p>照片主题</p>
     <div class="mui-input-row">
-        <input id='contact' type="text" name="name" class="mui-input-clear contact" placeholder="照片主题" />
+        <input id='contact' type="text" name="name" class="mui-input-clear contact" readonly placeholder="{!! $voteItem->name !!}  " />
     </div>
     <div class="mui-content-padded">
         <div class="mui-inline">照片主题</div>
-        {{--<a class="mui-pull-right mui-inline" href="#popover">
-            快捷输入
-            <span class="mui-icon mui-icon-arrowdown"></span>
-        </a>
-        <!--快捷输入具体内容，开发者可自己替换常用语-->
-        <div id="popover" class="mui-popover">
-            <div class="mui-popover-arrow"></div>
-            <div class="mui-scroll-wrapper">
-                <div class="mui-scroll">
-                    <ul class="mui-table-view">
-                        <!--仅流应用环境下显示-->
-                        <li class="mui-table-view-cell stream">
-                            <a href="#">新年快乐</a>
-                        </li>
-                        <li class="mui-table-view-cell"><a href="#">快乐</a></li>
-                        <li class="mui-table-view-cell"><a href="#">拍拍手</a></li>
-                        <li class="mui-table-view-cell"><a href="#">hello</a></li>
-                        <li class="mui-table-view-cell"><a href="#">哟西</a></li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>--}}
     </div>
     <div class="row mui-input-row">
-        <textarea id='question' name="desc" class="mui-input-clear question" placeholder="请详细描述你的照片..."></textarea>
+        <textarea id='question' name="desc" class="mui-input-clear question" readonly placeholder="{!! $voteItem->desc !!}"></textarea>
     </div>
     </form>
-    <div style="width:100%;padding:14px 10px;background-color:#fff;"><button id="btn" class="mui-btn mui-btn-blue mui-btn-block3 mui-btn-link">立即报名</button></div>
 
 </div>
 <script src="{{ asset('/js/mui.min.js') }}"></script>
 <script src="{{ asset('/js/baoming.js') }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-    mui.init();
-    mui('.mui-scroll-wrapper').scroll();
-
-    imgUpload({
-        inputId:'file', //input框id
-        imgBox:'imgBox', //图片容器id
-        buttonId:'btn', //提交按钮id
-        upUrl:'{{url()->current()}}',  //提交地址
-        data:'images', //参数名
-        num:"3"//上传个数
-    })
-
-</script>
 </body>
 
 </html>
