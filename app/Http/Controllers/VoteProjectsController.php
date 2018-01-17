@@ -93,8 +93,6 @@ class VoteProjectsController extends Controller
         return view('vote-projects.info', compact('voteProject'));
     }
 
-
-
     public function register(Request $request, $id)
     {
 
@@ -103,7 +101,12 @@ class VoteProjectsController extends Controller
         }])->active()->findOrFail($id);
 
         if (request()->ajax()) {
-            var_dump(1);exit;
+            if($voteProject->voteItem->isNotEmpty()){
+                return response()->json([
+                    'error'   => true,
+                    'message' => '不能重复参加'
+                ]);
+            }
             $this->validate($request, [
                 'images' => 'required',
                 'name' => 'required',
@@ -114,17 +117,23 @@ class VoteProjectsController extends Controller
             foreach ($files as $key => $value) {
                 // 判断图片上传中是否出错
                 if (!$value->isValid()) {
-                    exit("上传图片出错，请重试！");
+                    return response()->json([
+                        'success'   => true,
+                        'message' => '上传图片出错，请重试！'
+                    ]);
                 }
                 if(!empty($value)){//此处防止没有多文件上传的情况
                     $allowed_extensions = ["png", "jpg", "gif"];
                     if ($value->getClientOriginalExtension() && !in_array($value->getClientOriginalExtension(), $allowed_extensions)) {
-                        exit('您只能上传PNG、JPG或GIF格式的图片！');
+                        return response()->json([
+                            'success'   => true,
+                            'message' => '您只能上传PNG、JPG或GIF格式的图片！'
+                        ]);
                     }
-                    $destinationPath = '/uploads/'.date('Y-m-d'); // public文件夹下面uploads/xxxx-xx-xx 建文件夹
+                    $destinationPath = '/images/'.date('Y-m-d'); // public文件夹下面uploads/xxxx-xx-xx 建文件夹
                     $extension = $value->getClientOriginalExtension();   // 上传文件后缀
                     $fileName = date('YmdHis').mt_rand(100,999).'.'.$extension; // 重命名
-                    $value->move(public_path().$destinationPath, $fileName); // 保存图片
+                    $value->move(public_path('uploads').$destinationPath, $fileName); // 保存图片
                     $filePath[] = $destinationPath.'/'.$fileName;
                 }
             }
@@ -138,10 +147,14 @@ class VoteProjectsController extends Controller
             $voteProject->voteItem()->save($voteItem);
 
             return response()->json([
-                'data' => '1',
+                'success'   => true,
+                'message' => '参加成功,等待审核'
             ]);
         }
-
+        $status = '还未报名';
+        if($voteProject->voteItem->isNotEmpty()){
+            $voteProject->voteItem->first()->status==1;
+        }
         return view('vote-projects.register', compact('voteProject'));
     }
 

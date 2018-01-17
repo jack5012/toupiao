@@ -123,20 +123,24 @@
     </ul>
     <div style="width:100%;padding:14px 0;background-color:#fff;"><a type="button" class="mui-btn mui-btn-block" href="{{ action("VoteProjectsController@index", [ $voteProject->id ]) }}">查看竞争对手</a></div>
     <p>图片上传(可最多上传3张照片)</p>
-
+    <form id="upBox">
     <div id="image-list" class="row image-list">
-        <form id="upBox">
+
             <div id='imgBox'></div>
             <div class="image-item space" id="inputBox">
                 <input type="file" title="请选择图片" id="file" multiple="" accept="image/png,image/jpg,image/gif,image/JPEG">
                 <div class="image-up"></div>
             </div>
 
-        </form>
+
+    </div>
+    <p>照片主题</p>
+    <div class="mui-input-row">
+        <input id='contact' type="text" name="name" class="mui-input-clear contact" placeholder="照片主题" />
     </div>
     <div class="mui-content-padded">
-        <div class="mui-inline">新年祝福</div>
-        <a class="mui-pull-right mui-inline" href="#popover">
+        <div class="mui-inline">照片主题</div>
+        {{--<a class="mui-pull-right mui-inline" href="#popover">
             快捷输入
             <span class="mui-icon mui-icon-arrowdown"></span>
         </a>
@@ -158,15 +162,12 @@
                 </div>
             </div>
 
-        </div>
+        </div>--}}
     </div>
     <div class="row mui-input-row">
-        <textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+        <textarea id='question' name="desc" class="mui-input-clear question" placeholder="请详细描述你的照片..."></textarea>
     </div>
-    <p>QQ/邮箱</p>
-    <div class="mui-input-row">
-        <input id='contact' type="text" class="mui-input-clear contact" placeholder="(选填,方便我们联系你 )" />
-    </div>
+    </form>
     <div style="width:100%;padding:14px 10px;background-color:#fff;"><button id="btn" class="mui-btn mui-btn-blue mui-btn-block3 mui-btn-link">立即报名</button></div>
 
 </div>
@@ -182,7 +183,7 @@
         imgBox:'imgBox', //图片容器id
         buttonId:'btn', //提交按钮id
         upUrl:'{{url()->current()}}',  //提交地址
-        data:'file1', //参数名
+        data:'images', //参数名
         num:"3"//上传个数
     })
 

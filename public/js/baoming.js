@@ -30,6 +30,7 @@ function imgUpload(obj) {
         for(var i=0;i<imgFile.length;i++){
             fd.append(obj.data+"[]",imgFile[i]);
         }
+
         submitPicture(obj.upUrl, fd);
     })
 }

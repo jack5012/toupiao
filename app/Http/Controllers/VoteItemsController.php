@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entities\Common\VoteItem;
 use App\Entities\Common\VoteProject;
 use App\Entities\Common\VoteRecord;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -39,8 +40,16 @@ class VoteItemsController extends Controller
 
     public function show($id)
     {
-        $voteItem = $this->repository->with('voteProject')->find($id);
 
+        $voteItem = VoteItem::with(['voteProject' => function ($query) {
+            $query->active();
+        }])->active()->findOrFail($id);
+
+        if(!$voteItem->voteProject){
+            throw (new ModelNotFoundException())->setModel(
+                VoteProject::class, $voteItem->vote_projects_id
+            );
+        }
         $prive_item = VoteItem::where('voted','>',$voteItem->voted)->where('vote_projects_id',$voteItem->vote_projects_id)->active()->get();
 
         if($prive_item->isEmpty()){
@@ -64,7 +73,16 @@ class VoteItemsController extends Controller
         $openid = session('wechat.oauth_user')->getId();
         $itemID = $request->input('id');
 
-        $voteItem = VoteItem::find($itemID);
+        $voteItem = VoteItem::with(['voteProject' => function ($query) {
+            $query->active();
+        }])->active()->findOrFail($itemID);
+
+        if(!$voteItem->voteProject){
+            return response()->json([
+                'error'   => true,
+                'message' => '投票项目已结束'
+            ]);
+        }
 
         $voteRecord = $voteItem->voteRecord()->where(function ($query) use ($openid) {
             $query->where('openid', '=', $openid);
@@ -77,11 +95,11 @@ class VoteItemsController extends Controller
                 'message' => '不能重复投票'
             ]);
         }
-
-        $count = VoteProject::find($voteItem->vote_projects_id)->voteRecord()->where(function ($query) use ($openid) {
+        $count = $voteItem->voteProject->voteRecord()->where(function ($query) use ($openid) {
             $query->where('vote_records.openid', '=', $openid);
             $query->whereDate('vote_records.created_at',Carbon::now()->toDateString());
         })->count();
+
 
         if($count >= 3){
             return response()->json([
