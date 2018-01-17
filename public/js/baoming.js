@@ -80,14 +80,32 @@ function submitPicture(url,data) {
             url: url,
             async: true,
             data: data,
+            dataType: 'json',
             processData: false,
             contentType: false,
-            success: function(dat) {
-                alert(dat)
-                console.log(dat);
+            success: function(data) {
+                if(data.success){
+                    layer.open({
+                        content: data.message
+                        ,skin: 'msg'
+                        ,time: 1 //2秒后自动关闭
+                    });
+                    location.reload();
+                }
+                layer.open({
+                    content: data.message
+                    ,skin: 'msg'
+                    ,time: 1 //2秒后自动关闭
+                });
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText);
+                var res = JSON.parse(jqXHR.responseText);
+                layer.open({
+                    content: res.message
+                    ,skin: 'msg'
+                    ,time: 1 //2秒后自动关闭
+                });
             }
         });
     }else{

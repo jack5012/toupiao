@@ -172,6 +172,7 @@
 
 </div>
 <script src="{{ asset('/js/mui.min.js') }}"></script>
+<script src="{{ asset('js/layer.js') }}"></script>
 <script src="{{ asset('/js/baoming.js') }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">

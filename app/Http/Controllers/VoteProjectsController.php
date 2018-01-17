@@ -123,7 +123,7 @@ class VoteProjectsController extends Controller
                     ]);
                 }
                 if(!empty($value)){//此处防止没有多文件上传的情况
-                    $allowed_extensions = ["png", "jpg", "gif"];
+                    $allowed_extensions = ["png", "jpg", "gif","jpeg"];
                     if ($value->getClientOriginalExtension() && !in_array($value->getClientOriginalExtension(), $allowed_extensions)) {
                         return response()->json([
                             'success'   => true,
