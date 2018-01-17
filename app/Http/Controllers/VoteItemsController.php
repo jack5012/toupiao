@@ -47,7 +47,7 @@ class VoteItemsController extends Controller
             $counta =1;
             $diff =0;
         }else{
-            $counta = $prive_item->count();
+            $counta = $prive_item->count()+1;
             $diff = $prive_item->last()->voted - $voteItem->voted;
         }
         return view('vote-items.show', compact('voteItem','counta','diff'));
