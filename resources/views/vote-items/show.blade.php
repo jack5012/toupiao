@@ -234,7 +234,7 @@
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-bottom:none;">
             <a href="#" style="padding:0;">
-                <span class="mui-media-body current_low">{{ $diff }}</span>
+                <span class="mui-media-body current_low diff">{{ $diff }}</span>
                 <div class="mui-media-body">距离上一名还差</div>
             </a>
         </li>
@@ -300,6 +300,10 @@
                 if(!data.error){
                    $('.voted').text(function(index, text){
                         return 1+ parseInt(text);
+                    });
+                    $('.diff').text(function(index, text){
+                        var num = parseInt(text);
+                        return num>0 ? num-1:0;
                     });
                 }
                 layer.open({

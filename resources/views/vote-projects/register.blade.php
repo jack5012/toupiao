@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>报名</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/mui.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/icons-extra.css') }}" />
@@ -166,7 +167,7 @@
     <div class="mui-input-row">
         <input id='contact' type="text" class="mui-input-clear contact" placeholder="(选填,方便我们联系你 )" />
     </div>
-    <div style="width:100%;padding:14px 10px;background-color:#fff;"><button id="submit" class="mui-btn mui-btn-blue mui-btn-block3 mui-btn-link">立即报名</button></div>
+    <div style="width:100%;padding:14px 10px;background-color:#fff;"><button id="btn" class="mui-btn mui-btn-blue mui-btn-block3 mui-btn-link">立即报名</button></div>
 
 </div>
 <script src="{{ asset('/js/mui.min.js') }}"></script>
@@ -180,7 +181,7 @@
         inputId:'file', //input框id
         imgBox:'imgBox', //图片容器id
         buttonId:'btn', //提交按钮id
-        upUrl:'php/imgFile.php',  //提交地址
+        upUrl:'{{url()->current()}}',  //提交地址
         data:'file1', //参数名
         num:"3"//上传个数
     })

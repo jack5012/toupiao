@@ -97,11 +97,13 @@ class VoteProjectsController extends Controller
 
     public function register(Request $request, $id)
     {
+
         $voteProject = VoteProject::with(['voteItem' => function ($query) {
             $query->myitem();
         }])->active()->findOrFail($id);
 
         if (request()->ajax()) {
+            var_dump(1);exit;
             $this->validate($request, [
                 'images' => 'required',
                 'name' => 'required',

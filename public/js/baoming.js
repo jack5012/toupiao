@@ -62,6 +62,7 @@ function limitNum(num){
     }else if(imgFile.length>num){
         return false;
     }
+    return true;
 }
 
 //
@@ -72,6 +73,9 @@ function submitPicture(url,data) {
     if(url&&data){
         $.ajax({
             type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             url: url,
             async: true,
             data: data,
