@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>{{$voteProject->name}}</title>
+    <meta name="keywords" content="{{$voteProject->name}}" />
+    <meta name="description" content="{{strip_tags( str_replace(PHP_EOL, ' ', $voteProject->desc))}}" />
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -175,7 +177,7 @@
                         <div class="mui-control-item" i="time">
                             最新参与
                         </div>
-                        <div class="mui-control-item" i="voted">
+                        <div class="mui-control-item" i="vote">
                             人气排行
                         </div>
                     </div>
@@ -394,21 +396,35 @@
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
-    wx.config(<?php echo EasyWeChat::officialAccount()->jssdk->buildConfig(array('onMenuShareAppMessage'), false) ?>);
-    wx.onMenuShareAppMessage({
-        title: '{!! $voteProject->name !!}', // 分享标题
-        desc: '{!! $voteProject->desc !!}', // 分享描述
-        link: '{{url()->current()}}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: '{{ asset('uploads/'.$first) }}', // 分享图标
-        type: '', // 分享类型,music、video或link，不填默认为link
-        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-        success: function () {
+    wx.config(<?php echo EasyWeChat::officialAccount()->jssdk->buildConfig(array('onMenuShareAppMessage','onMenuShareTimeline'), false) ?>);
+    wx.ready(function(){
+        wx.onMenuShareAppMessage({
+            title: '{!! $voteProject->name !!}', // 分享标题
+            desc: '{!!  strip_tags( str_replace(PHP_EOL, ' ', $voteProject->desc))!!}', // 分享描述
+            link: '{{url()->current()}}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: '{{ asset('uploads/'.$first) }}', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
 // 用户确认分享后执行的回调函数
-        },
-        cancel: function () {
+            },
+            cancel: function () {
 // 用户取消分享后执行的回调函数
-        }
+            }
+        });
+        wx.onMenuShareTimeline({
+            title: '{!! $voteProject->name !!}', // 分享标题
+            link: '{{url()->current()}}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: '{{ asset('uploads/'.$first) }}', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
     });
+
 </script>
 
 </body>
